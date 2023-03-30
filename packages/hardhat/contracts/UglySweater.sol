@@ -44,7 +44,7 @@ contract UglySweater is NFTokenMetadata, NFTokenEnumerable, Ownable {
         uint256 _tokenId,
         string calldata _uri
     ) external payable {
-        // TODO: check that some fee is paid, tricky to fix it at $1 though...
+        require(msg.value >= 0.01 ether, "Not enough GNO sent to mint NFT");
         super._mint(_to, _tokenId);
         // obviously not secure, but good enough for demo
         super._setTokenUri(_tokenId, _uri);
