@@ -26,7 +26,7 @@ And learn more here: https://www.npmjs.com/package/hardhat-deploy
 const main = async () => {
   console.log("\n\n 📡 Deploying...\n");
 
-  const yourContract = await deploy("YourContract"); // <-- add in constructor args like line 19 vvvv
+  const yourContract = await deploy("UglySweater"); // <-- add in constructor args like line 19 vvvv
   // use for local token bridging
   // const mockToken = await deploy("MockERC20") // <-- add in constructor args like line 19 vvvv
 
@@ -97,9 +97,8 @@ const deploy = async (
     const gasUsed = deployed.deployTransaction.gasLimit.mul(
       deployed.deployTransaction.gasPrice
     );
-    extraGasInfo = `${utils.formatEther(gasUsed)} ETH, tx hash ${
-      deployed.deployTransaction.hash
-    }`;
+    extraGasInfo = `${utils.formatEther(gasUsed)} ETH, tx hash ${deployed.deployTransaction.hash
+      }`;
   }
 
   console.log(
