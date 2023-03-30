@@ -13,6 +13,25 @@ contract UglySweater is NFTokenMetadata, NFTokenEnumerable, Ownable {
         nftSymbol = "UGLY";
     }
 
+    // to support receiving ETH by default
+    receive() external payable {}
+
+    fallback() external payable {}
+
+    /**
+     * @dev Returns the balance of the contract.
+     */
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+
+    /**
+     * @dev Allows contract Owner to withdraw all the funds.
+     */
+    function withdrawFunds() external onlyOwner {
+        payable(owner).transfer(address(this).balance);
+    }
+
     /**
      * @dev Mints a new NFT.
      * @notice This is an external function which can be called by any user.
@@ -25,6 +44,7 @@ contract UglySweater is NFTokenMetadata, NFTokenEnumerable, Ownable {
         uint256 _tokenId,
         string calldata _uri
     ) external payable {
+        // TODO: check that some fee is paid, tricky to fix it at $1 though...
         super._mint(_to, _tokenId);
         // obviously not secure, but good enough for demo
         super._setTokenUri(_tokenId, _uri);
@@ -107,11 +127,6 @@ contract UglySweater is NFTokenMetadata, NFTokenEnumerable, Ownable {
     ) internal view override(NFToken, NFTokenEnumerable) returns (uint256) {
         return NFTokenEnumerable._getOwnerNFTCount(_owner);
     }
-
-    // to support receiving ETH by default
-    receive() external payable {}
-
-    fallback() external payable {}
 }
 
 // contract YourContract {
