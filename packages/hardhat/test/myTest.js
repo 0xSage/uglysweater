@@ -9,30 +9,30 @@ describe("My Dapp", function () {
     setTimeout(done, 2000);
   });
 
-  describe("YourContract", function () {
-    it("Should deploy YourContract", async function () {
-      const YourContract = await ethers.getContractFactory("YourContract");
+  describe("UglySweater", function () {
+    it("Should deploy UglySweater contract", async function () {
+      const UglySweater = await ethers.getContractFactory("UglySweater");
 
-      myContract = await YourContract.deploy();
+      myContract = await UglySweater.deploy();
     });
 
-    describe("setPurpose()", function () {
-      it("Should be able to set a new purpose", async function () {
-        const newPurpose = "Test Purpose";
+    // describe("setPurpose()", function () {
+    //   it("Should be able to set a new purpose", async function () {
+    //     const newPurpose = "Test Purpose";
 
-        await myContract.setPurpose(newPurpose);
-        expect(await myContract.purpose()).to.equal(newPurpose);
-      });
+    //     await myContract.setPurpose(newPurpose);
+    //     expect(await myContract.purpose()).to.equal(newPurpose);
+    //   });
 
-      it("Should emit a SetPurpose event ", async function () {
-        const [owner] = await ethers.getSigners();
+    //   it("Should emit a SetPurpose event ", async function () {
+    //     const [owner] = await ethers.getSigners();
 
-        const newPurpose = "Another Test Purpose";
+    //     const newPurpose = "Another Test Purpose";
 
-        expect(await myContract.setPurpose(newPurpose))
-          .to.emit(myContract, "SetPurpose")
-          .withArgs(owner.address, newPurpose);
-      });
-    });
+    //     expect(await myContract.setPurpose(newPurpose))
+    //       .to.emit(myContract, "SetPurpose")
+    //       .withArgs(owner.address, newPurpose);
+    //   });
+    // });
   });
 });

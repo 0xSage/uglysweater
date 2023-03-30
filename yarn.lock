@@ -3096,6 +3096,11 @@
   resolved "https://registry.yarnpkg.com/@n1ru4l/push-pull-async-iterable-iterator/-/push-pull-async-iterable-iterator-3.1.0.tgz#be450c97d1c7cd6af1a992d53232704454345df9"
   integrity sha512-K4scWxGhdQM0masHHy4gIQs2iGiLEXCrXttumknyPJqtdl4J179BjpibWSSQ1fxKdCcHgIlCTKXJU6cMM6D6Wg==
 
+"@nibbstack/erc721@^2.0.0":
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@nibbstack/erc721/-/erc721-2.6.1.tgz#3febedff66327a628e9c7a43f7b2f9473df85f89"
+  integrity sha512-Y8cinxqUVBhLJp+1bKDaC0V5vJqLpVZSeDkjkYouIgpY8XUKLdwBp2lzd6SCO66b/Pgct3TMlbZ32buJTITgwQ==
+
 "@noble/hashes@1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.1.2.tgz#e9e035b9b166ca0af657a7848eb2718f0f22f183"
