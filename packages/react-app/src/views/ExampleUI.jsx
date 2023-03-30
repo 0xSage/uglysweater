@@ -6,7 +6,7 @@ import { SyncOutlined } from "@ant-design/icons";
 import { Address, Balance, Events } from "../components";
 
 export default function ExampleUI({
-  purpose,
+  mint,
   address,
   mainnetProvider,
   localProvider,
@@ -16,51 +16,60 @@ export default function ExampleUI({
   readContracts,
   writeContracts,
 }) {
-  const [newPurpose, setNewPurpose] = useState("loading...");
+  const [newPrompt, setNewPrompt] = useState("loading...");
+  const [newMint, setNewMint] = useState();
 
   return (
     <div>
-      {/*
-        ⚙️ Here is an example UI that displays and sets the purpose in your smart contract:
-      */}
       <div style={{ border: "1px solid #cccccc", padding: 16, width: 400, margin: "auto", marginTop: 64 }}>
-        <h2>Example UI:</h2>
-        <h4>purpose: {purpose}</h4>
-        <Divider />
         <div style={{ margin: 8 }}>
           <Input
+            placeholder="Type the image prompt"
             onChange={e => {
-              setNewPurpose(e.target.value);
+              setNewPrompt(e.target.value);
             }}
           />
-          <Button
-            style={{ marginTop: 8 }}
-            onClick={async () => {
-              /* look how you call setPurpose on your contract: */
-              /* notice how you pass a call back for tx updates too */
-              const result = tx(writeContracts.YourContract.setPurpose(newPurpose), update => {
-                console.log("📡 Transaction Update:", update);
-                if (update && (update.status === "confirmed" || update.status === 1)) {
-                  console.log(" 🍾 Transaction " + update.hash + " finished!");
-                  console.log(
-                    " ⛽️ " +
-                      update.gasUsed +
-                      "/" +
-                      (update.gasLimit || update.gas) +
-                      " @ " +
-                      parseFloat(update.gasPrice) / 1000000000 +
-                      " gwei",
-                  );
-                }
-              });
-              console.log("awaiting metamask/web3 confirm result...", result);
-              console.log(await result);
-            }}
-          >
-            Set Purpose!
+          {/* Calls API to generate image(s) */}
+          <Button style={{ marginTop: 8 }} onClick={async () => {}}>
+            Magic!
           </Button>
         </div>
         <Divider />
+        <div style={{ margin: 8 }}>
+          {/* TODO: insert image block here */}
+          <div />
+          {/* Mints image as NFT on chain */}
+          <Button
+            style={{ marginTop: 8 }}
+            onClick={async () => {
+              const result = await tx({
+                to: writeContracts.UglySweater.address,
+                value: utils.parseEther(".01"),
+                data: writeContracts.UglySweater.interface.encodeFunctionData("mint", [
+                  address,
+                  6,
+                  "www.imagelocation.com",
+                ]),
+                gasLimit: 250000,
+              });
+
+              try {
+                if (result) {
+                  console.log(".........................");
+                  console.log("awaiting metamask/web3 confirm result...", result);
+                  console.log(await result);
+                }
+              } catch (error) {
+                console.log(".........................");
+                console.log(error);
+              }
+              // console.log("awaiting metamask/web3 confirm result...", result);
+              // console.log(await result);
+            }}
+          >
+            Mint!
+          </Button>
+        </div>
         Your Address:
         <Address address={address} ensProvider={mainnetProvider} fontSize={16} />
         <Divider />
@@ -88,66 +97,6 @@ export default function ExampleUI({
           ensProvider={mainnetProvider}
           fontSize={16}
         />
-        <Divider />
-        <div style={{ margin: 8 }}>
-          <Button
-            onClick={() => {
-              /* look how you call setPurpose on your contract: */
-              tx(writeContracts.YourContract.setPurpose("🍻 Cheers"));
-            }}
-          >
-            Set Purpose to &quot;🍻 Cheers&quot;
-          </Button>
-        </div>
-        <div style={{ margin: 8 }}>
-          <Button
-            onClick={() => {
-              /*
-              you can also just craft a transaction and send it to the tx() transactor
-              here we are sending value straight to the contract's address:
-            */
-              tx({
-                to: writeContracts.YourContract.address,
-                value: utils.parseEther("0.001"),
-              });
-              /* this should throw an error about "no fallback nor receive function" until you add it */
-            }}
-          >
-            Send Value
-          </Button>
-        </div>
-        <div style={{ margin: 8 }}>
-          <Button
-            onClick={() => {
-              /* look how we call setPurpose AND send some value along */
-              tx(
-                writeContracts.YourContract.setPurpose("💵 Paying for this one!", {
-                  value: utils.parseEther("0.001"),
-                }),
-              );
-              /* this will fail until you make the setPurpose function payable */
-            }}
-          >
-            Set Purpose With Value
-          </Button>
-        </div>
-        <div style={{ margin: 8 }}>
-          <Button
-            onClick={() => {
-              /* you can also just craft a transaction and send it to the tx() transactor */
-              tx({
-                to: writeContracts.YourContract.address,
-                value: utils.parseEther("0.001"),
-                data: writeContracts.YourContract.interface.encodeFunctionData("setPurpose(string)", [
-                  "🤓 Whoa so 1337!",
-                ]),
-              });
-              /* this should throw an error about "no fallback nor receive function" until you add it */
-            }}
-          >
-            Another Example
-          </Button>
-        </div>
       </div>
 
       {/*

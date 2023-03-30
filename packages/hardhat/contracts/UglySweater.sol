@@ -33,19 +33,19 @@ contract UglySweater is NFTokenMetadata, NFTokenEnumerable, Ownable {
     /**
      * @dev Mints a new NFT.
      * @notice This is an external function which can be called by any user. The URI is not checked.
-     * @param _to The address that will own the minted NFT.
-     * @param _tokenId is a unique hash value of the prompt.
-     * @param _uri String representing RFC 3986 URI.
+     * @param to The address that will own the minted NFT.
+     * @param tokenId is a unique hash value of the prompt.
+     * @param uri String representing RFC 3986 URI.
      */
     function mint(
-        address _to,
-        uint256 _tokenId,
-        string calldata _uri
+        address to,
+        uint256 tokenId,
+        string calldata uri
     ) external payable {
         require(msg.value >= 0.01 ether, "Not enough GNO sent to mint NFT");
-        require(idToOwner[_tokenId] == address(0), NFT_ALREADY_EXISTS);
-        super._mint(_to, _tokenId);
-        super._setTokenUri(_tokenId, _uri);
+        require(idToOwner[tokenId] == address(0), NFT_ALREADY_EXISTS);
+        super._mint(to, tokenId);
+        super._setTokenUri(tokenId, uri);
     }
 
     /**

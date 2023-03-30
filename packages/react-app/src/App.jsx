@@ -176,7 +176,7 @@ function App(props) {
   );
 
   // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(readContracts, "UglySweater", "purpose", [], localProviderPollingTime);
+  const mint = useContractReader(readContracts, "UglySweater", "mint", [], localProviderPollingTime);
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -292,9 +292,11 @@ function App(props) {
           </div>
         </div>
       </Header>
+
       {yourLocalBalance.lte(ethers.BigNumber.from("0")) && (
         <FaucetHint localProvider={localProvider} targetNetwork={targetNetwork} address={address} />
       )}
+
       <NetworkDisplay
         NETWORKCHECK={NETWORKCHECK}
         localChainId={localChainId}
@@ -303,6 +305,7 @@ function App(props) {
         logoutOfWeb3Modal={logoutOfWeb3Modal}
         USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
       />
+
       <Menu style={{ textAlign: "center", marginTop: 20 }} selectedKeys={[location.pathname]} mode="horizontal">
         <Menu.Item key="/">
           <Link to="/">App Home</Link>
@@ -365,7 +368,7 @@ function App(props) {
             tx={tx}
             writeContracts={writeContracts}
             readContracts={readContracts}
-            purpose={purpose}
+            mint={mint}
           />
         </Route>
         <Route path="/mainnetdai">
