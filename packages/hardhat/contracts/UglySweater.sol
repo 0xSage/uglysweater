@@ -5,8 +5,6 @@ import "@nibbstack/erc721/src/contracts/tokens/nf-token-metadata.sol";
 import "@nibbstack/erc721/src/contracts/tokens/nf-token-enumerable.sol";
 import "@nibbstack/erc721/src/contracts/ownership/ownable.sol";
 
-// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol
-
 contract UglySweater is NFTokenMetadata, NFTokenEnumerable, Ownable {
     constructor() {
         nftName = "Ugly Sweater";
@@ -45,8 +43,8 @@ contract UglySweater is NFTokenMetadata, NFTokenEnumerable, Ownable {
         string calldata _uri
     ) external payable {
         require(msg.value >= 0.01 ether, "Not enough GNO sent to mint NFT");
-        super._mint(_to, _tokenId);
         // obviously not secure, but good enough for demo
+        super._mint(_to, _tokenId);
         super._setTokenUri(_tokenId, _uri);
     }
 
